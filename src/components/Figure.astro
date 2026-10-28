@@ -12,9 +12,11 @@ interface Props {
   wide?: boolean;
   /** A photo, not a screenshot: no border. */
   photo?: boolean;
+  /** Above the fold: load right away, at high priority. */
+  priority?: boolean;
 }
 
-const { src, alt, caption, width, wide = false, photo = false } = Astro.props;
+const { src, alt, caption, width, wide = false, photo = false, priority = false } = Astro.props;
 
 // 36rem and 50rem at a 16px root. Keep in step with --column and --page in global.css.
 const COLUMN_WIDTH = 576;
@@ -37,8 +39,9 @@ const displayHeight = Math.round((displayWidth * src.height) / src.width);
     layout={width ? 'fixed' : 'constrained'}
     width={displayWidth}
     height={displayHeight}
-    loading="lazy"
-    decoding="async"
+    priority={priority}
+    loading={priority ? undefined : "lazy"}
+    decoding={priority ? undefined : "async"}
   />
   {caption && <figcaption>{caption}</figcaption>}
 </figure>

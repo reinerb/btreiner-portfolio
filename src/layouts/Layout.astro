@@ -41,7 +41,7 @@ const path = Astro.url.pathname;
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Benjamin Reiner, web developer" />
     <meta name="twitter:card" content="summary_large_image" />
-    <Font cssVariable="--font-heading" />
+    <Font cssVariable="--font-heading" preload={[{ weight: 500, style: 'normal' }]} />
     <Font cssVariable="--font-body" preload={[{ weight: 400, style: 'normal' }]} />
     <slot name='head' />
   </head>
