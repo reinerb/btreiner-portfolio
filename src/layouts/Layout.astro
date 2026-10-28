@@ -1,6 +1,9 @@
 ---
 import { SITE } from '../site';
 import { mailtoLink } from '../lib/email';
+import { Font } from 'astro:assets';
+
+import '../styles/global.css';
 
 interface Props {
   /** The full page title, suffix included. */
@@ -32,6 +35,8 @@ const path = Astro.url.pathname;
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:url" content={canonical} />
+    <Font cssVariable="--font-heading" />
+    <Font cssVariable="--font-body" preload={[{ weight: 400, style: 'normal' }]} />
   </head>
   <body>
     <a href="#main" class="skip">Skip to content</a>
