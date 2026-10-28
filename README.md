@@ -1,43 +1,22 @@
-# Astro Starter Kit: Minimal
+# btreiner.com
 
-```sh
-pnpm create astro@latest -- --template minimal
-```
+Source for [btreiner.com](https://btreiner.com). Built with Astro as a static site, with plain CSS. Content is Markdown, MDX, and YAML in `src/content/`.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commands
 
-## 🚀 Project Structure
+- `pnpm dev` starts the dev server.
+- `pnpm build` builds the site to `dist/`.
+- `pnpm preview` serves the build.
+- `pnpm astro check` type-checks components and content.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Resume PDF
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+The PDF linked from `/resume/` is exported by hand from the print stylesheet. Re-export it whenever `src/content/resume/resume.yaml` changes.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Personal details
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+This repository is public. The resume data has no phone number or street address, and the schema rejects fields it doesn't list. Keep both out of the repo.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Versions
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Dependencies are pinned to exact versions (`.npmrc`). Upgrade on purpose, one at a time.
