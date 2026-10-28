@@ -1,0 +1,71 @@
+@layer components {
+  .resume {
+    header p {
+      margin-bottom: 0.3em;
+    }
+
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 1.1em;
+      margin: 0 0 1em;
+      padding: 0;
+      font-size: 0.9em;
+      list-style: none;
+    }
+
+    .pdf-link {
+      font-size: 0.9em;
+    }
+
+    section {
+      margin-top: 1.8em;
+      padding-top: 1.1em;
+    }
+
+    h2 {
+      margin-bottom: 0.6em;
+      font-size: 1.25em;
+    }
+
+    h3 {
+      font-size: 1.05em;
+    }
+
+    article {
+      margin-bottom: 1.4em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    ul:not(.contact) {
+      margin: 0;
+      padding-left: 1.1em;
+    }
+
+    li {
+      margin-bottom: 0.35em;
+    }
+
+    dl {
+      margin: 0;
+    }
+
+    dt {
+      font-weight: 700;
+    }
+
+    dd {
+      margin: 0 0 0.6em;
+    }
+
+    @container page (width >= 50rem) {
+      > section > h2 {
+        margin: 0.15em 0 0;
+        font-size: 1.15em;
+      }
+    }
+  }
+}

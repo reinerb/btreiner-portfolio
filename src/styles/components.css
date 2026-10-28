@@ -1,0 +1,76 @@
+@layer components {
+  .skip {
+    position: absolute;
+    left: 1rem;
+    top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background: var(--bg);
+    border: 1px solid var(--link);
+    font-size: 1rem;
+    transform: translateY(-300%);
+
+    &:focus {
+      transform: none;
+    }
+  }
+
+  .facts {
+    margin: 0 0 0.55em;
+    color: var(--muted);
+    font-size: 0.82em;
+    letter-spacing: 0.01em;
+  }
+
+  .entry {
+    margin-bottom: 2.4em;
+
+    &:last-child,
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .entry-case-study h3 {
+    font-size: 1.3em;
+  }
+
+  .entry-short {
+    margin-bottom: 1.7em;
+
+    h3 {
+      font-size: 1.05em;
+    }
+  }
+
+  dl.facts {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 0.15em 1.25em;
+    margin: 0 0 1.2em;
+    color: var(--text);
+    font-size: 0.9em;
+    letter-spacing: 0;
+
+    div {
+      display: contents;
+    }
+
+    dt {
+      color: var(--muted);
+    }
+
+    dd {
+      margin: 0;
+    }
+  }
+
+  .outcome {
+    margin-bottom: 1.6em;
+    padding-bottom: 1.4em;
+    background-position: 0 100%;
+  }
+
+  main > article > h2 {
+    margin-top: 1.6em;
+  }
+}

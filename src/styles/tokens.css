@@ -1,0 +1,22 @@
+@layer base {
+  :root {
+    color-scheme: light dark;
+
+    --bg: light-dark(#f5f4ec, #171a14);
+    --text: light-dark(#1f231b, #e3e4d9);
+    --muted: light-dark(#585e4e, #a4a995);
+    --link: light-dark(#3e5024, #b3c287);
+    --rule: light-dark(#d5d5c7, #30352a);
+    --contour: light-dark(rgb(31 35 27 / 4.55%), rgb(227 228 217 / 5.25%));
+
+    --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+    --column: 36rem;
+    --rail: 11rem;
+    --rail-gap: 3rem;
+    --page: calc(var(--rail) + var(--rail-gap) + var(--column));
+    --into-rail: calc(-1 * (var(--rail) + var(--rail-gap)));
+
+    --dots: radial-gradient(circle, var(--muted) 0.9px, transparent 1.3px);
+  }
+}
