@@ -40,8 +40,8 @@ const displayHeight = Math.round((displayWidth * src.height) / src.width);
     width={displayWidth}
     height={displayHeight}
     priority={priority}
-    loading={priority ? undefined : "lazy"}
-    decoding={priority ? undefined : "async"}
+    loading={priority ? undefined : 'lazy'}
+    decoding={priority ? undefined : 'async'}
   />
   {caption && <figcaption>{caption}</figcaption>}
 </figure>
@@ -50,26 +50,31 @@ const displayHeight = Math.round((displayWidth * src.height) / src.width);
   .figure {
     margin: 1.6em 0;
   }
+
   .figure :global(img) {
     display: block;
     max-width: 100%;
     height: auto;
     border: 1px solid var(--rule);
   }
+
   .photo :global(img) {
     border: 0;
   }
+
   figcaption {
     margin-top: 0.5rem;
     color: var(--muted);
     font-size: 0.82em;
   }
+
   @media (prefers-color-scheme: dark) {
     .figure :global(img) {
       filter: brightness(0.9);
     }
   }
-  @media (min-width: 58rem) {
+
+  @media (width >= 58rem) {
     .wide {
       margin-left: var(--into-rail);
     }

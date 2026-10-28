@@ -32,16 +32,30 @@ const codeLabel = code
     <header class="case-header">
       <h1 style={`view-transition-name: ${entry.id}`}>{title}</h1>
       <dl class="facts">
-        <div><dt>Client</dt><dd>{client}</dd></div>
-        <div><dt>Role</dt><dd>{role}</dd></div>
-        <div><dt>Dates</dt><dd>{dates}</dd></div>
-        <div><dt>Stack</dt><dd>{stack.join(', ')}</dd></div>
-      {code && codeLabel && (
-       <div>
-         <dt>Code</dt>
-         <dd><a href={code} set:html={codeLabel} /></dd>
-       </div>
-      )}
+        <div>
+          <dt>Client</dt>
+          <dd>{client}</dd>
+        </div>
+        <div>
+          <dt>Role</dt>
+          <dd>{role}</dd>
+        </div>
+        <div>
+          <dt>Dates</dt>
+          <dd>{dates}</dd>
+        </div>
+        <div>
+          <dt>Stack</dt>
+          <dd>{stack.join(', ')}</dd>
+        </div>
+        {code && codeLabel && (
+          <div>
+            <dt>Code</dt>
+            <dd>
+              <a href={code} set:html={codeLabel} />
+            </dd>
+          </div>
+        )}
       </dl>
       <p class="outcome">{outcome}</p>
     </header>
@@ -49,8 +63,14 @@ const codeLabel = code
   </article>
   <nav class="case-nav" aria-label="More work">
     <ul>
-      {next?.data.caseStudy && <li><a href={`/work/${next.data.caseStudy.id}/`}>{next.data.linkLabel}</a></li>}
-      <li><a href="/#work">Back to all work</a></li>
+      {next?.data.caseStudy && (
+        <li>
+          <a href={`/work/${next.data.caseStudy.id}/`}>{next.data.linkLabel}</a>
+        </li>
+      )}
+      <li>
+        <a href="/#work">Back to all work</a>
+      </li>
     </ul>
   </nav>
 </Layout>

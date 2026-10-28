@@ -47,18 +47,34 @@ const path = Astro.url.pathname;
     <meta name="twitter:card" content="summary_large_image" />
     <Font cssVariable="--font-heading" preload={[{ weight: 500, style: 'normal' }]} />
     <Font cssVariable="--font-body" preload={[{ weight: 400, style: 'normal' }]} />
-    <slot name='head' />
+    <slot name="head" />
   </head>
   <body>
-    <a href="#main" class="skip">Skip to content</a>
+    <a href="#main" class="skip">
+      Skip to content
+    </a>
     <header>
-      <a href="/" class="name">{SITE.name}</a>
+      <a href="/" class="name">
+        {SITE.name}
+      </a>
       <nav aria-label="Main">
         <ul>
-          <li><a href="/#work">Work</a></li>
-          <li><a href="/about/" aria-current={path === '/about/' ? 'page' : undefined}>About</a></li>
-          <li><a href="/resume/" aria-current={path === '/resume/' ? 'page' : undefined}>Resume</a></li>
-          <li><Fragment set:html={mailtoLink(SITE.email, 'Email')} /></li>
+          <li>
+            <a href="/#work">Work</a>
+          </li>
+          <li>
+            <a href="/about/" aria-current={path === '/about/' ? 'page' : undefined}>
+              About
+            </a>
+          </li>
+          <li>
+            <a href="/resume/" aria-current={path === '/resume/' ? 'page' : undefined}>
+              Resume
+            </a>
+          </li>
+          <li>
+            <Fragment set:html={mailtoLink(SITE.email, 'Email')} />
+          </li>
         </ul>
       </nav>
     </header>
@@ -68,9 +84,15 @@ const path = Astro.url.pathname;
     <footer>
       <nav aria-label="Footer">
         <ul>
-          <li><a href={SITE.github}>GitHub</a></li>
-          <li><a href={SITE.linkedin}>LinkedIn</a></li>
-          <li><a href="/resume/">Resume</a></li>
+          <li>
+            <a href={SITE.github}>GitHub</a>
+          </li>
+          <li>
+            <a href={SITE.linkedin}>LinkedIn</a>
+          </li>
+          <li>
+            <a href="/resume/">Resume</a>
+          </li>
         </ul>
       </nav>
     </footer>

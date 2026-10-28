@@ -33,9 +33,9 @@ const projects = defineCollection({
       linkLabel: z.string().optional(),
     })
     .refine((d) => d.tier !== 'case-study' || Boolean(d.caseStudy), {
-     error: 'a case-study entry needs a caseStudy reference',
-     path: ['caseStudy'],
-   })
+      error: 'a case-study entry needs a caseStudy reference',
+      path: ['caseStudy'],
+    })
     .refine((d) => !d.caseStudy || Boolean(d.linkLabel), {
       error: 'linkLabel is required when caseStudy is set',
       path: ['linkLabel'],

@@ -16,20 +16,35 @@ const { contact, summary, summaryClosing, experience, projects, skills, educatio
   <article class="resume">
     <header>
       <h1>{contact.name}</h1>
-      <p>{contact.title} · {contact.region}</p>
+      <p>
+        {contact.title} · {contact.region}
+      </p>
       <ul class="contact">
-        <li><Fragment set:html={mailtoLink(contact.email)} /></li>
-        <li><a href={`https://${contact.website}`}>{contact.website}</a></li>
-        <li><a href={`https://${contact.github}`}>{contact.github}</a></li>
-        <li><a href={`https://${contact.linkedin}`}>{contact.linkedin}</a></li>
+        <li>
+          <Fragment set:html={mailtoLink(contact.email)} />
+        </li>
+        <li>
+          <a href={`https://${contact.website}`}>{contact.website}</a>
+        </li>
+        <li>
+          <a href={`https://${contact.github}`}>{contact.github}</a>
+        </li>
+        <li>
+          <a href={`https://${contact.linkedin}`}>{contact.linkedin}</a>
+        </li>
       </ul>
     </header>
 
-    <p class="pdf-link"><a href="/benjamin-reiner-resume.pdf">Download the PDF</a></p>
+    <p class="pdf-link">
+      <a href="/benjamin-reiner-resume.pdf">Download the PDF</a>
+    </p>
 
     <section>
       <h2>Summary</h2>
-      <p>{summary}{summaryClosing && ` ${summaryClosing}`}</p>
+      <p>
+        {summary}
+        {summaryClosing && ` ${summaryClosing}`}
+      </p>
     </section>
 
     <section>
@@ -37,8 +52,14 @@ const { contact, summary, summaryClosing, experience, projects, skills, educatio
       {experience.map((job) => (
         <article>
           <h3>{job.title}</h3>
-          <p class="facts">{job.organization}, {job.location} · {job.dates}</p>
-          <ul>{job.bullets.map((bullet) => <li>{bullet}</li>)}</ul>
+          <p class="facts">
+            {job.organization}, {job.location} · {job.dates}
+          </p>
+          <ul>
+            {job.bullets.map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
         </article>
       ))}
     </section>
@@ -50,9 +71,18 @@ const { contact, summary, summaryClosing, experience, projects, skills, educatio
           <h3>{project.name}</h3>
           <p class="facts">
             {project.kind} · {project.year}
-            {project.link && <> · <a href={`https://${project.link}`}>{project.link}</a></>}
+            {project.link && (
+              <>
+                {' '}
+                · <a href={`https://${project.link}`}>{project.link}</a>
+              </>
+            )}
           </p>
-          <ul>{project.bullets.map((bullet) => <li>{bullet}</li>)}</ul>
+          <ul>
+            {project.bullets.map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
         </article>
       ))}
     </section>
@@ -61,7 +91,10 @@ const { contact, summary, summaryClosing, experience, projects, skills, educatio
       <h2>Skills</h2>
       <dl>
         {skills.map((skill) => (
-          <div><dt>{skill.label}</dt><dd>{skill.items}</dd></div>
+          <div>
+            <dt>{skill.label}</dt>
+            <dd>{skill.items}</dd>
+          </div>
         ))}
       </dl>
     </section>
@@ -71,8 +104,16 @@ const { contact, summary, summaryClosing, experience, projects, skills, educatio
       {education.map((school) => (
         <article>
           <h3>{school.degree}</h3>
-          <p class="facts">{school.school}, {school.location} · {school.dates}</p>
-          {school.bullets && <ul>{school.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
+          <p class="facts">
+            {school.school}, {school.location} · {school.dates}
+          </p>
+          {school.bullets && (
+            <ul>
+              {school.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+          )}
         </article>
       ))}
     </section>

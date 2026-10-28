@@ -33,25 +33,36 @@ const person = {
   <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(person)} />
   <h1>{SITE.name}</h1>
   <p>
-    I’m a web developer in Massachusetts. Since 2019 I’ve been building and maintaining websites, mostly for nonprofits and small organizations where one or two people look after the site on top of their other work. Most of what I do is on the technical side, especially setting up content management systems and connecting sites to other services.
+    I’m a web developer in Massachusetts. Since 2019 I’ve been building and maintaining websites,
+    mostly for nonprofits and small organizations where one or two people look after the site on top
+    of their other work. Most of what I do is on the technical side, especially setting up content
+    management systems and connecting sites to other services.
   </p>
-  <p>When I’m not working, I’m usually out birding or hiking at a state park or a Mass Audubon sanctuary.</p>
+  <p>
+    When I’m not working, I’m usually out birding or hiking at a state park or a Mass Audubon
+    sanctuary.
+  </p>
 
   <section id="work">
     <h2>Work</h2>
-    {caseStudies.map((entry) => <ProjectEntry entry={entry} />)}
+    {caseStudies.map((entry) => (
+      <ProjectEntry entry={entry} />
+    ))}
   </section>
 
   <section id="smaller-projects">
     <h2>Smaller projects</h2>
-    {shortEntries.map((entry) => <ProjectEntry entry={entry} />)}
+    {shortEntries.map((entry) => (
+      <ProjectEntry entry={entry} />
+    ))}
   </section>
 
   <section id="contact">
     <h2>Contact</h2>
     <p>
       {jobSearch}
-      I’m also open to contract work with small organizations. The best way to reach me is by email at <Fragment set:html={mailtoLink(SITE.email)} />.
+      I’m also open to contract work with small organizations. The best way to reach me is by email
+      at <Fragment set:html={mailtoLink(SITE.email)} />.
     </p>
   </section>
 </Layout>
