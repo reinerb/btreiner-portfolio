@@ -37,6 +37,7 @@ const path = Astro.url.pathname;
     <meta property="og:url" content={canonical} />
     <Font cssVariable="--font-heading" />
     <Font cssVariable="--font-body" preload={[{ weight: 400, style: 'normal' }]} />
+    <slot name='head' />
   </head>
   <body>
     <a href="#main" class="skip">Skip to content</a>

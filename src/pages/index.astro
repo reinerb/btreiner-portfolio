@@ -8,12 +8,25 @@ import { mailtoLink } from '../lib/email';
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const caseStudies = projects.filter((entry) => entry.data.tier === 'case-study');
 const shortEntries = projects.filter((entry) => entry.data.tier === 'short');
+
+const description =
+  'Benjamin Reiner is a web developer in Massachusetts who builds and maintains websites for mission-driven organizations, mostly on the CMS and integrations side.';
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE.name,
+  url: new URL('/', Astro.site).href,
+  jobTitle: 'Web Developer',
+  description,
+  address: { '@type': 'PostalAddress', addressRegion: 'MA', addressCountry: 'US' },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Northeastern University' },
+  sameAs: [SITE.github, SITE.linkedin],
+};
 ---
 
-<Layout
-  title="Benjamin Reiner, web developer"
-  description="Benjamin Reiner is a web developer in Massachusetts who builds and maintains websites for mission-driven organizations, mostly on the CMS and integrations side."
->
+<Layout title="Benjamin Reiner, web developer" description={description}>
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(person)} />
   <h1>{SITE.name}</h1>
   <p>
     I’m a web developer in Massachusetts. Since 2019 I’ve been building and maintaining websites, mostly for nonprofits and small organizations where one or two people look after the site on top of their other work. Most of what I do is on the technical side, especially setting up content management systems and connecting sites to other services.
