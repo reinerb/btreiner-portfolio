@@ -1,0 +1,77 @@
+contact:
+  name: Benjamin Reiner
+  title: Web Developer
+  region: Attleboro area, MA
+  email: hello@btreiner.com
+  website: btreiner.com
+  github: github.com/reinerb
+  linkedin: linkedin.com/in/benjamin-t-reiner
+
+summary: >-
+  Web developer since 2019, building and maintaining websites for nonprofits, community organizations, and small businesses. Experienced in moving sites from page builders to custom WordPress themes and headless builds without losing content or search visibility. Connects sites to other services through APIs and automation tools like Twilio and Make, and works with AI tools, including Claude Code and the Claude API.
+# Remove this line when the job search is over.
+summaryClosing: >-
+  Looking for a full-time web role at an organization working on conservation, animal protection, or sustainability.
+
+experience:
+  - title: "Web Developer & Designer"
+    organization: "McGuinness Media & Marketing"
+    location: "Warwick, RI (hybrid)"
+    dates: "March 2024 – August 2026"
+    bullets:
+      - "Rebuilt the Block Island Ferry website (about 3,000 daily users), moving it from an aging WPBakery page-builder theme to a custom WordPress theme with Shopify integration and a schedule system any office staff member can update, including from a phone. Led the stakeholder sessions that set the scope."
+      - "Built an alert system that lets ferry staff post an alert from one screen and choose whether it also goes to Facebook, Instagram, X, and text subscribers. Facebook and Instagram posting runs through Make, and X posting goes through its API directly, with failures reported in the editor."
+      - "Cut text alert delivery from about 1.5 hours to about 20 minutes for 4,400 subscribers by replacing a WordPress plugin with a custom Twilio integration that handles subscriber data, opt-ins, and STOP replies, and sends in batches with Action Scheduler."
+      - "Traced a client’s long-running hosting costs to images bypassing a Next.js site’s image optimization, cutting Storyblok bandwidth from about 40 GB a day to about 3 GB."
+      - "As the agency’s first dedicated web developer, ran technical and SEO audits for project quotes and as paid evaluations, and worked with the design, media, and client services teams on project planning, SEO, and web design."
+      - "Served as technical lead after the agency hired a junior developer in January 2026: reviewed code, assigned work, wrote onboarding docs, and built a starter template (Vite, TypeScript, SCSS, Timber/Twig) that cut setup time on new builds."
+  - title: "Web Developer & Designer (Freelance)"
+    organization: "Mass Communications Concepts"
+    location: "Sudbury, MA (remote)"
+    dates: "March 2020 – February 2024"
+    bullets:
+      - "Built and maintained WordPress sites for nonprofits, religious organizations, and small businesses, handling each project from intake and requirements through deployment and handoff."
+      - "Built a headless site for a healthcare client: a Next.js front end on a WordPress backend, with view tracking to show the most-read articles."
+      - "Applied SEO and WCAG accessibility standards across client projects, and extended sites with custom PHP functionality."
+  - title: "Web Designer & Technology Consultant (Contract)"
+    organization: "First Parish of Sudbury"
+    location: "Sudbury, MA (hybrid)"
+    dates: "September 2019 – April 2021"
+    bullets:
+      - "Built and maintained the congregation’s main site and a members’ site with a BuddyPress forum that people used to stay in touch during the pandemic."
+      - "Helped staff and volunteers move worship services online through Zoom and YouTube, and managed the weekly Constant Contact newsletter."
+
+projects:
+  - name: "Chickadee"
+    kind: "Personal project"
+    year: "2026"
+    link: "github.com/reinerb/chickadee"
+    bullets:
+      - "A Python command-line tool, run on schedules with GitHub Actions, that checks a website for outages, changed pages, and broken links, and keeps results in Airtable."
+      - "Sends new and changed pages to the Claude API for review using the Message Batches API and structured outputs. Make sends alerts and a weekly digest to Discord and email."
+
+skills:
+  - label: "CMS and frameworks"
+    items: "WordPress (custom themes and plugins, ACF, taxonomies, WP-CLI, headless), Timber/Twig, Next.js, Astro, Keystatic, Storyblok, Shopify"
+  - label: "Web fundamentals"
+    items: "HTML, CSS/SASS, JavaScript/TypeScript, React, Tailwind, responsive and accessible (WCAG) UI, SEO and GEO"
+  - label: "Integrations and automation"
+    items: "REST APIs, webhooks, Twilio, Make, Airtable, social platform APIs"
+  - label: "AI tools"
+    items: "Claude Code for development; Claude API (Message Batches, structured outputs)"
+  - label: "Backend and scripting"
+    items: "PHP (Composer, dependency injection, MVC structure), MySQL, Python (command-line tools, automation)"
+  - label: "Hosting and operations"
+    items: "DNS, email deliverability (SPF, DKIM, DMARC), SSL/TLS, SSH/SFTP, cPanel, Plesk, backups, staging, site migrations"
+  - label: "Site health"
+    items: "Lighthouse, Google Analytics and Search Console, security practices (sanitization, escaping, prepared statements), cross-browser testing"
+  - label: "Collaboration"
+    items: "requirements gathering, documentation, code review, mentoring, Git/GitHub, Figma, Slack, Freedcamp"
+
+education:
+  - degree: "BS in Mathematics, cum laude"
+    school: "Northeastern University"
+    location: "Boston, MA"
+    dates: "September 2010 – January 2016"
+    bullets:
+      - "Independent research on a computational problem in abstract algebra: counting square roots of 2×2 matrices over a finite field."
