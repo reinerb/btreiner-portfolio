@@ -1,0 +1,62 @@
+---
+import { SITE } from '../site';
+import { mailtoLink } from '../lib/email';
+
+interface Props {
+  /** The full page title, suffix included. */
+  title: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const { title, description, noindex = false } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonical} />
+  </head>
+  <body>
+    <a href="#main" class="skip">Skip to content</a>
+    <header>
+      <a href="/" class="name">{SITE.name}</a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="/#work">Work</a></li>
+          <li><a href="/about/" aria-current={path === '/about/' ? 'page' : undefined}>About</a></li>
+          <li><a href="/resume/" aria-current={path === '/resume/' ? 'page' : undefined}>Resume</a></li>
+          <li><Fragment set:html={mailtoLink(SITE.email, 'Email')} /></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer>
+      <nav aria-label="Footer">
+        <ul>
+          <li><a href={SITE.github}>GitHub</a></li>
+          <li><a href={SITE.linkedin}>LinkedIn</a></li>
+          <li><a href="/resume/">Resume</a></li>
+        </ul>
+      </nav>
+    </footer>
+  </body>
+</html>

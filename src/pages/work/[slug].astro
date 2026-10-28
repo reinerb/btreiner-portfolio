@@ -1,0 +1,32 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { SITE } from '../../site';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('work');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { title, metaTitle, description, client, role, dates, stack, outcome, code } = entry.data;
+const { Content } = await render(entry);
+
+// "https://github.com/reinerb/chickadee" is shown as "github.com/reinerb/chickadee".
+const codeLabel = code ? code.replace(/^https?:\/\//, '').replace(/\/$/, '') : undefined;
+---
+
+<Layout title={`${metaTitle ?? title} · ${SITE.name}`} description={description}>
+  <article>
+    <h1>{title}</h1>
+    <dl class="facts">
+      <div><dt>Client</dt><dd>{client}</dd></div>
+      <div><dt>Role</dt><dd>{role}</dd></div>
+      <div><dt>Dates</dt><dd>{dates}</dd></div>
+      <div><dt>Stack</dt><dd>{stack.join(', ')}</dd></div>
+      {code && <div><dt>Code</dt><dd><a href={code}>{codeLabel}</a></dd></div>}
+    </dl>
+    <p class="outcome">{outcome}</p>
+    <Content />
+  </article>
+</Layout>

@@ -1,0 +1,61 @@
+---
+title: Chickadee
+metaTitle: Chickadee, a website monitoring tool
+description: A Python tool that checks a website for outages, changed pages, and broken links, has Claude review new and changed pages, and keeps the results in Airtable.
+client: Personal project
+role: Developer
+dates: "2026"
+stack:
+  - Python
+  - Claude API
+  - Airtable
+  - GitHub Actions
+  - Make
+code: https://github.com/reinerb/chickadee
+outcome: >-
+  Chickadee is a command-line tool that checks a website on a schedule and reports outages, changed pages, broken links, and pages that need attention, with Claude reviewing new and changed pages. It has been running on this site since October 2026.
+---
+
+## Why I built it
+
+Small organizations often don't find out a page is broken until someone tells them. By then, a page may have been down since Saturday, or a link may have been leading nowhere for months. I built Chickadee so a site's owners would hear about those problems first. I also built it to get more practice with the Airtable and Claude APIs.
+
+It's named after the bird, which adds more "dee" notes to its alarm call as a threat gets more dangerous. GitHub Actions runs each part on its own schedule, from hourly uptime checks to a weekly digest. Results land in Airtable, where they're easy to sort and filter, and Make sends alerts and the digest on to Discord and email.
+
+I wrote it with Claude Code and treated it much like a junior developer, reviewing every change and making edits where they made sense. The [design notes](https://github.com/reinerb/chickadee/blob/main/docs/design.md) in the repo cover each part in more detail.
+
+## Hearing about outages
+
+Chickadee checks every page once an hour. My first version sent an alert as soon as a check failed. That meant a blocked request or a dropped connection could set off an alert for a page that was still up.
+
+The usual fix is to wait for a second failed check, but with hourly checks, that would make every real alert at least an hour late. Instead, any page that fails is checked again after 30 seconds, and only a page that fails both times counts as down. All the failing pages share one pause, so if a whole site goes down, the run takes 30 seconds longer, not 30 seconds per page.
+
+Each page also keeps two statuses: what it's doing now, and the last status an alert went out for. An alert is due whenever they differ. If an alert fails to send, it goes out on the next run. If the page has recovered by then, the two statuses match again, and the outdated alert never goes out.
+
+## Reviewing only what changed
+
+Each week, Chickadee reads every page and makes a fingerprint of its title, description, and main text. Menus, headers, and footers are stripped out first, so a new menu item doesn't count as a change. Only new pages and pages whose fingerprint changed go to Claude for review. On a stable site, that's usually a handful of pages a week.
+
+Each page keeps the fingerprint of its current version and the fingerprint of the version Claude last reviewed. If a review fails or never gets collected, the two stay different, and the page is sent again the next week without anything having to keep track of the failure.
+
+Reviews go through the Message Batches API, since nobody needs them instantly and batches cost half as much. Pages are cut off at 3,000 words, which keeps each review under a cent. I chose Claude Sonnet for the reviews after running it and Claude Haiku on the same pages. Haiku's reviews were terse, and Sonnet's were more descriptive.
+
+Each review comes back in a fixed shape through structured outputs, with a summary of the page, topic tags chosen from a list in Airtable, and a score from 1 to 10 with suggestions. The descriptive fields come before the score, so Claude writes down what a page says before judging it. Page text goes inside its own tags, and the prompt tells Claude to review it, not to follow any instructions in it.
+
+{/* TODO: add a Figure here. An expanded Airtable record for one btreiner.com page, showing Claude's summary, main point, topic tags, score, and suggestions. Pick a page with a middling score and useful suggestions. Write the caption and alt text once the image exists. */}
+
+## Avoiding false alarms
+
+Link checks sort results into three groups, so the broken list can be trusted. A link counts as broken only if it returns a 404 or 410, its domain doesn't exist or refuses connections, or the link itself is malformed. Timeouts, server errors, and 403 or 429 responses usually mean a site is blocking automated requests or is briefly down, so those links go in a separate list as unverified.
+
+Pages get flagged for attention when they're down, have broken links, or haven't been updated in a year, among other rules. A flag only fires when the data supports it, so a page that hasn't been reviewed yet can't be flagged for a low score.
+
+The weekly digest lists new pages, changed pages, pages that need attention, and uptime events. Python writes those lists, since names, links, and dates have to be exact. Claude writes only the opening paragraph, working from the same lists. If that call fails, the digest goes out without it.
+
+{/* TODO: add a Figure here. The weekly digest for btreiner.com, as the email or the Discord message, whichever reads better cropped. The first digest runs Tuesday, November 3, 2026. Write the caption and alt text once the image exists. */}
+
+## Watching this site's move
+
+I started running Chickadee on this site in October 2026, before moving it from headless WordPress and Next.js to Astro. Before pointing it at a real site, I changed the importer to normalize URLs, so `example.org/page` and `example.org/page/` count as the same page. Without that, a site that changed how its URLs end would look like it had lost every page and gained a new set. I'll add what Chickadee finds here once the move is done.
+
+{/* TODO: the last sentence above is a placeholder. Replace it with the results after the switchover, and move the home page Chickadee line back to past tense at the same time. */}

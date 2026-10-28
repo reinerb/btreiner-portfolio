@@ -1,16 +1,41 @@
 ---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import ProjectEntry from '../components/ProjectEntry.astro';
+import { SITE } from '../site';
+import { mailtoLink } from '../lib/email';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const caseStudies = projects.filter((entry) => entry.data.tier === 'case-study');
+const shortEntries = projects.filter((entry) => entry.data.tier === 'short');
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout
+  title="Benjamin Reiner, web developer"
+  description="Benjamin Reiner is a web developer in Massachusetts who builds and maintains websites for mission-driven organizations, mostly on the CMS and integrations side."
+>
+  <h1>{SITE.name}</h1>
+  <p>
+    I’m a web developer in Massachusetts. Since 2019 I’ve been building and maintaining websites, mostly for nonprofits and small organizations where one or two people look after the site on top of their other work. Most of what I do is on the technical side, especially setting up content management systems and connecting sites to other services.
+  </p>
+  <p>When I’m not working, I’m usually out birding or hiking at a state park or a Mass Audubon sanctuary.</p>
+
+  <section id="work">
+    <h2>Work</h2>
+    {caseStudies.map((entry) => <ProjectEntry entry={entry} />)}
+  </section>
+
+  <section id="smaller-projects">
+    <h2>Smaller projects</h2>
+    {shortEntries.map((entry) => <ProjectEntry entry={entry} />)}
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>
+      {/* Remove the next sentence when the job search is over. */}
+      I’m looking for a full-time web role at an organization working on conservation, animal protection, or sustainability.
+      I’m also open to contract work with small organizations. The best way to reach me is by email at <Fragment set:html={mailtoLink(SITE.email)} />.
+    </p>
+  </section>
+</Layout>

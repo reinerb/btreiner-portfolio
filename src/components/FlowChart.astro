@@ -1,0 +1,33 @@
+---
+interface Props {
+  /** Names the chart for screen reader users. */
+  label?: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="flow" role={label ? 'group' : undefined} aria-label={label}>
+  <slot />
+</div>
+
+<style>
+  .flow {
+    margin: 1.5rem 0;
+  }
+  .flow :global(ul) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .flow :global(ul ul) {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  @media (min-width: 48rem) {
+    .flow :global(ul ul) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

@@ -1,0 +1,20 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'projects'>;
+}
+
+const { entry } = Astro.props;
+const { title, client, year, stack, caseStudy, linkLabel } = entry.data;
+const { Content } = await render(entry);
+
+const facts = [client, year, stack.join(', ')].join(' · ');
+---
+
+<article>
+  <h3>{title}</h3>
+  <p class="facts">{facts}</p>
+  <Content />
+  {caseStudy && <p class="entry-link"><a href={`/work/${caseStudy.id}/`}>{linkLabel}</a></p>}
+</article>
