@@ -13,21 +13,84 @@ const { label } = Astro.props;
 
 <style>
   .flow {
-    margin: 1.5rem 0;
+    margin: 1.8em 0 2em;
+    font-size: 0.9em;
+    line-height: 1.5;
+  }
+  .flow :global(p),
+  .flow :global(li) {
+    position: relative;
+    margin: 0;
+    padding: 0.75em 1em;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
   }
   .flow :global(ul) {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .flow :global(ul ul) {
     display: grid;
-    gap: 1rem;
-    margin-top: 1rem;
+    gap: 1em;
+    margin: 0 0 0 1.25em;
+    padding: 1.25em 0 0 1.25em;
+    border-left: 1px solid var(--muted);
+    list-style: none;
   }
-  @media (min-width: 48rem) {
-    .flow :global(ul ul) {
+  .flow :global(li)::before {
+    content: '';
+    position: absolute;
+    top: 1.2em;
+    left: calc(-1.25em - 1px);
+    width: 1.25em;
+    border-top: 1px solid var(--muted);
+  }
+  .flow :global(li:last-child)::after {
+    content: '';
+    position: absolute;
+    top: calc(1.2em + 1px);
+    bottom: -1px;
+    left: calc(-1.25em - 2px);
+    width: 3px;
+    background: var(--bg);
+  }
+  @media (min-width: 58rem) {
+    .flow {
+      margin-left: var(--into-rail);
+    }
+    .flow :global(p) {
+      max-width: 36rem;
+      margin-inline: auto;
+    }
+    .flow :global(p)::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      height: 0.75em;
+      border-left: 1px solid var(--muted);
+    }
+    .flow :global(ul) {
+      position: relative;
       grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin: 0;
+      padding: 1.5em 0 0;
+      border-left: 0;
+    }
+    .flow :global(ul)::before {
+      content: '';
+      position: absolute;
+      top: 0.75em;
+      left: calc((100% - 2em) / 6);
+      right: calc((100% - 2em) / 6);
+      border-top: 1px solid var(--muted);
+    }
+    .flow :global(li)::before {
+      top: -0.75em;
+      left: 50%;
+      width: 0;
+      height: 0.75em;
+      border-top: 0;
+      border-left: 1px solid var(--muted);
+    }
+    .flow :global(li:last-child)::after {
+      content: none;
     }
   }
 </style>

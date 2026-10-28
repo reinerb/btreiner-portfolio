@@ -21,10 +21,11 @@ import smsBox from '../../assets/ferry-alerts/sms-box.webp';
 
 <FlowChart label="How an alert reaches each channel">
 
-- **Staff publish an alert in WordPress.** It appears on the website as a banner, in the home and schedules page boxes, and as a popup if turned on.
-  - **Meta:** WordPress sends it to Make, which posts it to Facebook, and to Instagram if the alert has an image. If a step fails, Make reports back to the alert screen.
-  - **X:** WordPress posts it through the X API. Errors come straight back to the alert screen.
-  - **Text messages:** WordPress queues the messages in batches with Action Scheduler and sends them through Twilio. When someone replies STOP, Twilio tells WordPress, which marks them as opted out.
+**Staff publish an alert in WordPress.** It appears on the website as a banner, in the home and schedules page boxes, and as a popup if turned on.
+
+- **Meta:** WordPress sends it to Make, which posts it to Facebook, and to Instagram if the alert has an image. If a step fails, Make reports back to the alert screen.
+- **X:** WordPress posts it through the X API. Errors come straight back to the alert screen.
+- **Text messages:** WordPress queues the messages in batches with Action Scheduler and sends them through Twilio. When someone replies STOP, Twilio tells WordPress, which marks them as opted out.
 
 </FlowChart>
 

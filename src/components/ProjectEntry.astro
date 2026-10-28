@@ -6,13 +6,13 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { title, client, year, stack, caseStudy, linkLabel } = entry.data;
+const { title, client, year, stack, caseStudy, linkLabel, tier } = entry.data;
 const { Content } = await render(entry);
 
 const facts = [client, year, stack.join(', ')].join(' · ');
 ---
 
-<article>
+<article class={ `entry entry-${tier}` }>
   <h3>{title}</h3>
   <p class="facts">{facts}</p>
   <Content />

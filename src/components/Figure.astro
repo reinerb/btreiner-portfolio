@@ -6,20 +6,29 @@ interface Props {
   src: ImageMetadata;
   alt: string;
   caption?: string;
-  /** Display width in CSS pixels, for screenshots narrower than the text column. */
+  /** Display width in CSS pixels, for images narrower than the text column. */
   width?: number;
+  /** Spans the left rail on wide screens. For large screenshots. */
+  wide?: boolean;
+  /** A photo, not a screenshot: no border. */
+  photo?: boolean;
 }
 
-const { src, alt, caption, width } = Astro.props;
+const { src, alt, caption, width, wide = false, photo = false } = Astro.props;
 
-// 36rem at a 16px root. Update if the text column changes.
+// 36rem and 50rem at a 16px root. Keep in step with --column and --page in global.css.
 const COLUMN_WIDTH = 576;
+const PAGE_WIDTH = 800;
 
-const displayWidth = width ?? Math.min(src.width, COLUMN_WIDTH);
+const maxWidth = wide ? PAGE_WIDTH : COLUMN_WIDTH;
+const displayWidth = width ?? Math.min(src.width, maxWidth);
 const displayHeight = Math.round((displayWidth * src.height) / src.width);
 ---
 
-<figure class="figure" style={width ? `max-width: ${width}px` : undefined}>
+<figure
+  class:list={['figure', { wide, photo }]}
+  style={width ? `max-width: ${width}px` : undefined}
+>
   <Picture
     src={src}
     alt={alt}
@@ -36,7 +45,7 @@ const displayHeight = Math.round((displayWidth * src.height) / src.width);
 
 <style>
   .figure {
-    margin: 1.5rem 0;
+    margin: 1.6em 0;
   }
   .figure :global(img) {
     display: block;
@@ -44,14 +53,22 @@ const displayHeight = Math.round((displayWidth * src.height) / src.width);
     height: auto;
     border: 1px solid var(--rule);
   }
+  .photo :global(img) {
+    border: 0;
+  }
   figcaption {
     margin-top: 0.5rem;
-    font-size: 0.82em;
     color: var(--muted);
+    font-size: 0.82em;
   }
   @media (prefers-color-scheme: dark) {
     .figure :global(img) {
       filter: brightness(0.9);
+    }
+  }
+  @media (min-width: 58rem) {
+    .wide {
+      margin-left: var(--into-rail);
     }
   }
 </style>
