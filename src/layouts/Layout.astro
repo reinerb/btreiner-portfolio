@@ -13,6 +13,7 @@ interface Props {
 }
 
 const { title, description, noindex = false } = Astro.props;
+const ogImage = new URL('/og-image.png', Astro.site);
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const path = Astro.url.pathname;
@@ -35,6 +36,11 @@ const path = Astro.url.pathname;
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Benjamin Reiner, web developer" />
+    <meta name="twitter:card" content="summary_large_image" />
     <Font cssVariable="--font-heading" />
     <Font cssVariable="--font-body" preload={[{ weight: 400, style: 'normal' }]} />
     <slot name='head' />
