@@ -142,4 +142,17 @@
       }
     }
   }
+
+  @media (forced-colors: active) {
+    body > header,
+    .case-header {
+      border-bottom: 1px solid CanvasText;
+    }
+
+    main section,
+    body > footer,
+    .case-nav {
+      border-top: 1px solid CanvasText;
+    }
+  }
 }

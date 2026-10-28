@@ -1,11 +1,12 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://btreiner.com',
   trailingSlash: 'always',
-  integrations: [mdx()],
+  integrations: [mdx(), sitemap()],
   fonts: [
     {
       name: 'Piazzolla',
