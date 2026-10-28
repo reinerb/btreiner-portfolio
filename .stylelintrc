@@ -1,0 +1,18 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "import-notation": "string",
+    "custom-property-empty-line-before": null,
+    "no-descending-specificity": null,
+    "value-keyword-case": ["lower", { "ignoreProperties": ["/^--font-/"] }]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.astro"],
+      "customSyntax": "postcss-html",
+      "rules": {
+        "selector-pseudo-class-no-unknown": [true, { "ignorePseudoClasses": ["global"] }]
+      }
+    }
+  ]
+}

@@ -18,8 +18,13 @@ const caseStudies = (await getCollection('projects'))
 const index = caseStudies.findIndex((project) => project.data.caseStudy?.id === entry.id);
 const next = caseStudies.length > 1 ? caseStudies[(index + 1) % caseStudies.length] : undefined;
 
-// "https://github.com/reinerb/chickadee" is shown as "github.com/reinerb/chickadee".
-const codeLabel = code ? code.replace(/^https?:\/\//, '').replace(/\/$/, '') : undefined;
+// "https://github.com/reinerb/chickadee" is shown as "github.com/reinerb/chickadee", with a line
+// break allowed after each slash. Built as a string so a formatter can't add spaces inside it.
+const escape = (text: string) =>
+  text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const codeLabel = code
+  ? escape(code.replace(/^https?:\/\//, '').replace(/\/$/, '')).replaceAll('/', '/<wbr>')
+  : undefined;
 ---
 
 <Layout title={`${metaTitle ?? title} · ${SITE.name}`} description={description}>
@@ -31,14 +36,12 @@ const codeLabel = code ? code.replace(/^https?:\/\//, '').replace(/\/$/, '') : u
         <div><dt>Role</dt><dd>{role}</dd></div>
         <div><dt>Dates</dt><dd>{dates}</dd></div>
         <div><dt>Stack</dt><dd>{stack.join(', ')}</dd></div>
-        {code && codeLabel && (
-          <div>
-            <dt>Code</dt>
-            <dd>
-              <a href={code}>{codeLabel.split('/').map((part, i) => (i === 0 ? part : <Fragment>/<wbr />{part}</Fragment>))}</a>
-            </dd>
-          </div>
-        )}
+      {code && codeLabel && (
+       <div>
+         <dt>Code</dt>
+         <dd><a href={code} set:html={codeLabel} /></dd>
+       </div>
+      )}
       </dl>
       <p class="outcome">{outcome}</p>
     </header>

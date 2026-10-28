@@ -9,6 +9,10 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 const caseStudies = projects.filter((entry) => entry.data.tier === 'case-study');
 const shortEntries = projects.filter((entry) => entry.data.tier === 'short');
 
+// Remove this, and {jobSearch} in the Contact section, when the job search is over.
+const jobSearch =
+  'I’m looking for a full-time web role at an organization working on conservation, animal protection, or sustainability.';
+
 const description =
   'Benjamin Reiner is a web developer in Massachusetts who builds and maintains websites for mission-driven organizations, mostly on the CMS and integrations side.';
 
@@ -46,8 +50,7 @@ const person = {
   <section id="contact">
     <h2>Contact</h2>
     <p>
-      {/* Remove the next sentence when the job search is over. */}
-      I’m looking for a full-time web role at an organization working on conservation, animal protection, or sustainability.
+      {jobSearch}
       I’m also open to contract work with small organizations. The best way to reach me is by email at <Fragment set:html={mailtoLink(SITE.email)} />.
     </p>
   </section>
