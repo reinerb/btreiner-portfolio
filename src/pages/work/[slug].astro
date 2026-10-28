@@ -12,21 +12,42 @@ const { entry } = Astro.props;
 const { title, metaTitle, description, client, role, dates, stack, outcome, code } = entry.data;
 const { Content } = await render(entry);
 
+const caseStudies = (await getCollection('projects'))
+  .filter((project) => project.data.tier === 'case-study' && project.data.caseStudy)
+  .sort((a, b) => a.data.order - b.data.order);
+const index = caseStudies.findIndex((project) => project.data.caseStudy?.id === entry.id);
+const next = caseStudies.length > 1 ? caseStudies[(index + 1) % caseStudies.length] : undefined;
+
 // "https://github.com/reinerb/chickadee" is shown as "github.com/reinerb/chickadee".
 const codeLabel = code ? code.replace(/^https?:\/\//, '').replace(/\/$/, '') : undefined;
 ---
 
 <Layout title={`${metaTitle ?? title} · ${SITE.name}`} description={description}>
-  <article>
-    <h1 style={`view-transition-name: ${entry.id}`}>{title}</h1>
-    <dl class="facts">
-      <div><dt>Client</dt><dd>{client}</dd></div>
-      <div><dt>Role</dt><dd>{role}</dd></div>
-      <div><dt>Dates</dt><dd>{dates}</dd></div>
-      <div><dt>Stack</dt><dd>{stack.join(', ')}</dd></div>
-      {code && <div><dt>Code</dt><dd><a href={code}>{codeLabel}</a></dd></div>}
-    </dl>
-    <p class="outcome">{outcome}</p>
+  <article class="case-study">
+    <header class="case-header">
+      <h1 style={`view-transition-name: ${entry.id}`}>{title}</h1>
+      <dl class="facts">
+        <div><dt>Client</dt><dd>{client}</dd></div>
+        <div><dt>Role</dt><dd>{role}</dd></div>
+        <div><dt>Dates</dt><dd>{dates}</dd></div>
+        <div><dt>Stack</dt><dd>{stack.join(', ')}</dd></div>
+        {code && codeLabel && (
+          <div>
+            <dt>Code</dt>
+            <dd>
+              <a href={code}>{codeLabel.split('/').map((part, i) => (i === 0 ? part : <Fragment>/<wbr />{part}</Fragment>))}</a>
+            </dd>
+          </div>
+        )}
+      </dl>
+      <p class="outcome">{outcome}</p>
+    </header>
     <Content />
   </article>
+  <nav class="case-nav" aria-label="More work">
+    <ul>
+      {next?.data.caseStudy && <li><a href={`/work/${next.data.caseStudy.id}/`}>{next.data.linkLabel}</a></li>}
+      <li><a href="/#work">Back to all work</a></li>
+    </ul>
+  </nav>
 </Layout>

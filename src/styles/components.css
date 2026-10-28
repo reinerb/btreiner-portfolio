@@ -64,13 +64,56 @@
     }
   }
 
-  .outcome {
+  .case-header {
     margin-bottom: 1.6em;
     padding-bottom: 1.4em;
     background-position: 0 100%;
+
+    .outcome {
+      margin-bottom: 0;
+    }
   }
 
   main > article > h2 {
     margin-top: 1.6em;
+  }
+
+  .case-nav {
+    margin-top: 2.4em;
+    padding-top: 1.3em;
+    background-position: 0 0;
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5em 2em;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  }
+
+  @container page (width >= 50rem) {
+    .case-header {
+      display: grid;
+      grid-template-columns: var(--rail) minmax(0, 1fr);
+      grid-template-rows: auto auto 1fr;
+      column-gap: var(--rail-gap);
+      margin-left: var(--into-rail);
+
+      > * {
+        grid-column: 2;
+      }
+
+      > dl.facts {
+        grid-column: 1;
+        grid-row: 1 / -1;
+        align-self: start;
+        grid-template-columns: max-content minmax(0, 1fr);
+        gap: 0.35em 0.75em;
+        margin: 0.9em 0 0;
+        font-size: 0.82em;
+      }
+    }
   }
 }

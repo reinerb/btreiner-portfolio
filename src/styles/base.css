@@ -33,6 +33,30 @@
     }
   }
 
+  html {
+    @media (prefers-reduced-motion: no-preference) {
+      scroll-behavior: smooth;
+    }
+  }
+
+  [id] {
+    scroll-margin-top: 1.5rem;
+  }
+
+  :target > h2,
+  h2:target,
+  h3:target {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: target-flash 1.6s ease-out;
+    }
+  }
+
+  @keyframes target-flash {
+    from {
+      background-color: color-mix(in srgb, var(--link) 18%, transparent);
+    }
+  }
+
   p {
     margin: 0 0 1em;
     text-wrap: pretty;

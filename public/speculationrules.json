@@ -1,0 +1,10 @@
+{
+  "prerender": [
+    {
+      "where": {
+        "and": [{ "href_matches": "/*" }, { "not": { "href_matches": "/*.pdf" } }]
+      },
+      "eagerness": "moderate"
+    }
+  ]
+}

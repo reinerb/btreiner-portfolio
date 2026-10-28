@@ -28,7 +28,8 @@
     body > header,
     body > footer,
     .skip,
-    .pdf-link {
+    .pdf-link,
+    .case-nav {
       display: none;
     }
 
@@ -41,7 +42,7 @@
     }
 
     main section,
-    .outcome {
+    .case-header {
       background: none;
     }
 
