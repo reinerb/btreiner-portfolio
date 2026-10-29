@@ -1,0 +1,65 @@
+---
+title: Moving this site off headless WordPress
+description: How Benjamin Reiner moved his website from headless WordPress to Astro on Cloudflare, which CMS options he considered, and why he chose plain Markdown.
+client: Personal project
+role: Developer
+dates: '2026'
+stack:
+  - Astro
+  - MDX
+  - Cloudflare
+  - GitHub Actions
+  - Playwright
+  - Lighthouse CI
+code: https://github.com/reinerb/btreiner-portfolio
+outcome: >-
+  I moved this site from headless WordPress and Next.js to a static Astro site on Cloudflare, launched October 28, 2026. Updating it now means writing a Markdown file and merging a pull request.
+---
+
+## The old site
+
+I built the first version of this site in September 2023 and launched it that October. I was moving away from theme builders at the time, and I'd only ever worked with prebuilt WordPress themes, so building headless felt like the one way to get a site I had full control over. It hadn't occurred to me that I could write my own theme.
+
+The result was a Next.js front end on Vercel, which was free, reading from a WordPress backend on shared hosting that cost about $100 a year. The site had ten pages: home, about, a portfolio archive, six portfolio pieces, and a contact page. The design was busier than I wanted.
+
+Updating it was clunky. After I saved a change in WordPress, a plugin was supposed to call a webhook that told Vercel to rebuild the site. It didn't always fire, so I often rebuilt by hand on Vercel. For ten pages and one editor, that was a database, PHP hosting, and a build service, and publishing a change still wasn't dependable.
+
+I'd meant to redo it for a while. Leaving my job in August 2026 gave me the time.
+
+## What the site needs
+
+One editor, a few pages that change now and then, and nothing that has to update between builds. There are no accounts or comments, and no contact form, only an email link. Anything I picked had to be judged against that, not against what a bigger site would need.
+
+## The options
+
+I ruled out writing a custom WordPress theme before I compared anything. I'd been moving away from WordPress for a while and didn't want this site to depend on it.
+
+Headless WordPress again would have kept the setup that was clunky to begin with.
+
+An API-based CMS like Storyblok keeps content outside the repository, and a build that can't reach the CMS can fail. That's a risk I didn't want on a site people visit while I'm applying for jobs, and it's more than one editor needs.
+
+Keystatic edits Markdown, YAML, and JSON files in the repository, which suits a site like this. Its default format is Markdoc, though, and my case studies use MDX components, which may not work in its editor. I haven't checked. Its GitHub-based mode also needs server rendering, which would end the site's being fully static. Run only on my own computer, it would still be an option.
+
+EmDash is Cloudflare's CMS built on Astro, and it reached 1.0 in late September 2026. From its documentation, it brings back a database, media storage, an admin login, and server rendering, the same pieces as my old setup on newer infrastructure. I haven't tried it, so I can't say how well it works.
+
+## What I chose
+
+I chose Markdown and MDX files in the repository, with Astro's content collections. Each page type has a schema, so a case study missing a client or a date fails the build and never reaches the live site. To publish, I write a file and open a pull request, and merging it deploys the change. Markdown is more natural to me than a rich text editor, and I can write in the editor I already use.
+
+In 2023 I chose headless WordPress because it was the only way I could see to get full control. This time I started from what the site needed, and files in a repository covered it.
+
+It costs something. Every change goes through a pull request, even a typo, because the main branch requires one. There's no editing screen. Hosting on Cloudflare is free, but the domain and email still cost money.
+
+Each pull request also runs accessibility scans in light and dark themes, Lighthouse checks that require 100 for accessibility and SEO, and tests for redirects and headers. A change can't be merged if any of them fail.
+
+## Moving the old addresses
+
+The old site had ten addresses, and the new one still answers at all of them. The home and about pages stayed where they were. The old contact page sends visitors to the Contact section of the home page. The ferry alerts piece and the ferry rebuild piece each go to their new case study, and the theme boilerplate piece goes to the smaller projects. Three of the six portfolio pieces aren't on the new site, so their addresses, along with the portfolio archive, send visitors to the work list. The redirect tests run against Cloudflare's local development server, so they exercise the real redirect file. [Chickadee](/work/chickadee/) is checking the old addresses, and I'll add anything it finds that I missed.
+
+## What isn't known yet
+
+{/* TODO: replace this paragraph with Chickadee's switchover results, and say what, if anything, it found that I'd missed. Move the home page Chickadee line back to past tense at the same time. */}
+
+I'll add what Chickadee finds here once the move has been watched for a while.
+
+I also haven't checked whether Keystatic's local editor works with my MDX components. If hand-editing gets tedious, that's the first thing I'd try.
