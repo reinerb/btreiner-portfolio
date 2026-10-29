@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "engines": {
-    "node": ">=22.23.4"
+    "node": ">=26.13.0"
   },
   "packageManager": "pnpm@12.3.4",
   "scripts": {
@@ -20,7 +20,8 @@
     "lint:js": "eslint --flag unstable_native_nodejs_ts_config .",
     "lint:css": "stylelint \"src/**/*.{css,astro}\"",
     "test": "playwright test",
-    "test:fonts": "node scripts/check-font-coverage.ts"
+    "test:fonts": "node scripts/check-font-coverage.ts",
+    "test:lighthouse": "lhci autorun"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "0.4.5",
@@ -33,6 +34,7 @@
     "@astrojs/check": "0.9.12",
     "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^10.0.1",
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.64.1",
     "@types/fontkit": "^2.0.9",
     "eslint": "^10.13.0",
