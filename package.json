@@ -18,7 +18,9 @@
     "format:check": "prettier --check .",
     "lint": "pnpm lint:js && pnpm lint:css",
     "lint:js": "eslint --flag unstable_native_nodejs_ts_config .",
-    "lint:css": "stylelint \"src/**/*.{css,astro}\""
+    "lint:css": "stylelint \"src/**/*.{css,astro}\"",
+    "test": "playwright test",
+    "test:fonts": "node scripts/check-font-coverage.ts"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "0.4.5",
@@ -29,11 +31,16 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
+    "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.1",
+    "@types/fontkit": "^2.0.9",
     "eslint": "^10.13.0",
     "eslint-plugin-astro": "^3.2.1",
     "eslint-plugin-jsx-a11y-x": "^0.2.0",
+    "fontkit": "^2.0.4",
     "globals": "^17.13.0",
+    "playwright-core": "^1.64.1",
     "postcss-html": "^2.0.0",
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^1.1.2",
