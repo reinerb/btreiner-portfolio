@@ -6,8 +6,10 @@ dist/
 
 # test output
 test_results/
+test-results/
 playwright-report/
 .lighthouseci/
+lighthouse-report/
 
 # dependencies
 node_modules/
