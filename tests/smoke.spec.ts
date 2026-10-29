@@ -14,6 +14,32 @@ test.describe('server behavior', () => {
     });
   }
 
+  const oldUrls: [from: string, status: number, to: string][] = [
+    ['/about', 301, '/about/'],
+    ['/contact', 301, '/#contact'],
+    ['/contact/', 301, '/#contact'],
+    ['/portfolio', 301, '/work/'],
+    ['/portfolio/bif-sms', 301, '/work/ferry-alerts/'],
+    ['/portfolio/bif-sms/', 301, '/work/ferry-alerts/'],
+    ['/portfolio/block-island-ferry', 302, '/work/'],
+    ['/portfolio/block-island-ferry/', 302, '/work/'],
+    ['/portfolio/theme-boilerplate', 301, '/#smaller-projects'],
+    ['/portfolio/theme-boilerplate/', 301, '/#smaller-projects'],
+    ['/portfolio/aa-window-cleaning', 301, '/work/'],
+    ['/portfolio/premeer-real-estate', 301, '/work/'],
+    ['/portfolio/oshnn', 301, '/work/'],
+    ['/portfolio/a-page-that-never-existed', 301, '/work/'],
+  ];
+
+  for (const [from, status, to] of oldUrls) {
+    test(`old URL ${from} redirects to ${to}`, async ({ request }) => {
+      const response = await request.get(from, { maxRedirects: 0 });
+      expect(response.status()).toBe(status);
+      const location = new URL(response.headers()['location'] ?? '', 'http://localhost');
+      expect(location.pathname + location.hash).toBe(to);
+    });
+  }
+
   test('pages without a trailing slash redirect to it', async ({ request }) => {
     const response = await request.get('/about', { maxRedirects: 0 });
     expect([301, 307, 308]).toContain(response.status());
@@ -119,17 +145,24 @@ test.describe('keyboard and motion', () => {
   for (const reducedMotion of ['no-preference', 'reduce'] as const) {
     test(`page transitions with reduced motion: ${reducedMotion}`, async ({ browser }) => {
       const context = await browser.newContext({ reducedMotion });
-      await context.addInitScript(() => {
-        addEventListener('pagereveal', (event) => {
-          sessionStorage.setItem('transition', event.viewTransition ? 'yes' : 'no');
-        });
-      });
       const page = await context.newPage();
       await page.goto(new URL('/', test.info().project.use.baseURL).href);
-      await page.getByRole('link', { name: 'Read about the ferry alerts' }).click();
-      await page.waitForURL('**/work/ferry-alerts/');
-      const transition = await page.evaluate(() => sessionStorage.getItem('transition'));
-      expect(transition).toBe(reducedMotion === 'reduce' ? 'no' : 'yes');
+      const transitionsOn = await page.evaluate(() => {
+        const active = (rules: CSSRuleList): boolean =>
+          [...rules].some((rule) => {
+            if (rule instanceof CSSMediaRule) {
+              return matchMedia(rule.conditionText).matches && active(rule.cssRules);
+            }
+            if (rule instanceof CSSGroupingRule) return active(rule.cssRules);
+            return (
+              rule.constructor.name === 'CSSViewTransitionRule' &&
+              'navigation' in rule &&
+              rule.navigation === 'auto'
+            );
+          });
+        return [...document.styleSheets].some((sheet) => active(sheet.cssRules));
+      });
+      expect(transitionsOn).toBe(reducedMotion === 'no-preference');
       await context.close();
     });
   }

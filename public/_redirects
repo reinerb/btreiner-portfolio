@@ -1,2 +1,16 @@
 /work /#work 302
 /work/ /#work 302
+/about /about/ 301
+/contact /#contact 301
+/contact/ /#contact 301
+/portfolio /work/ 301
+/portfolio/bif-sms /work/ferry-alerts/ 301
+/portfolio/bif-sms/ /work/ferry-alerts/ 301
+/portfolio/block-island-ferry /work/ 302
+/portfolio/block-island-ferry/ /work/ 302
+/portfolio/theme-boilerplate /#smaller-projects 301
+/portfolio/theme-boilerplate/ /#smaller-projects 301
+/portfolio/aa-window-cleaning /work/ 301
+/portfolio/premeer-real-estate /work/ 301
+/portfolio/oshnn /work/ 301
+/portfolio/* /work/ 301
