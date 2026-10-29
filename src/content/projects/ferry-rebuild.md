@@ -1,7 +1,7 @@
 ---
 title: Rebuilding the Block Island Ferry website
 tier: case-study
-order: 2
+order: 3
 client: McGuinness Media & Marketing
 year: "2026"
 stack:
