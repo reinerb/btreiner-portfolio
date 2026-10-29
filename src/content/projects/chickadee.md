@@ -1,7 +1,7 @@
 ---
 title: Chickadee
 tier: case-study
-order: 2
+order: 3
 client: Personal project
 year: "2026"
 stack:
