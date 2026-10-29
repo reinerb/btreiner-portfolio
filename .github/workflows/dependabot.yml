@@ -1,0 +1,39 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 3
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: typescript
+        versions: ['>=7']
+    groups:
+      astro:
+        patterns: ['astro', '@astrojs/*']
+      playwright:
+        patterns: ['@playwright/test', 'playwright-core', '@axe-core/playwright']
+      lint-and-format:
+        patterns:
+          - 'eslint'
+          - '@eslint/*'
+          - 'eslint-plugin-*'
+          - 'typescript-eslint'
+          - 'globals'
+          - 'stylelint'
+          - 'stylelint-*'
+          - 'postcss-html'
+          - 'prettier'
+          - 'prettier-plugin-*'
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 3
+    groups:
+      actions:
+        patterns: ['*']
