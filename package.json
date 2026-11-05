@@ -23,10 +23,10 @@
     "test:lighthouse": "lhci autorun"
   },
   "dependencies": {
-    "@astrojs/markdown-satteri": "0.4.5",
-    "@astrojs/mdx": "8.1.1",
+    "@astrojs/markdown-satteri": "0.4.6",
+    "@astrojs/mdx": "8.1.2",
     "@astrojs/sitemap": "3.7.4",
-    "astro": "7.4.2",
+    "astro": "7.4.4",
     "typescript": "6.0.3"
   },
   "devDependencies": {
