@@ -13,4 +13,4 @@ caseStudy: chickadee
 linkLabel: Read about Chickadee
 ---
 
-Small organizations often don't find out a page is broken or out of date until someone tells them. Chickadee is a command-line tool that checks a website on a schedule and reports what changed, what broke, and what might need attention, with Claude reviewing new or changed pages. I'm running it on this site while I move it to a new setup.
+Small organizations often don’t find out a page is broken or out of date until someone tells them. Chickadee is a command-line tool that checks a website on a schedule and reports what changed, what broke, and what might need attention, with Claude reviewing new or changed pages. I ran it on this site through its move to a new setup, and it still runs here every hour.

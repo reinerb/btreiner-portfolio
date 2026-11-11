@@ -22,7 +22,7 @@ Small organizations often don't find out a page is broken until someone tells th
 
 It's named after the bird, which adds more "dee" notes to its alarm call as a threat gets more dangerous. GitHub Actions runs each part on its own schedule, from hourly uptime checks to a weekly digest. Results land in Airtable, where they're easy to sort and filter, and Make sends alerts and the digest on to Discord and email.
 
-I wrote it with Claude Code and treated it much like a junior developer, reviewing every change and making edits where they made sense. The [design notes](https://github.com/reinerb/chickadee/blob/main/docs/design.md) in the repo cover each part in more detail.
+I wrote it with Claude Code and treated it much like a junior developer, reviewing every change and making edits where they made sense. The [design notes](https://github.com/reinerb/chickadee/blob/main/docs/design.md) in the repo cover each part in more detail, and the [development notes](https://github.com/reinerb/chickadee/blob/main/docs/development.md) cover how the code fits together.
 
 ## Hearing about outages
 
@@ -54,8 +54,14 @@ The weekly digest lists new pages, changed pages, pages that need attention, and
 
 {/* TODO: add a Figure here. The weekly digest for btreiner.com, as the email or the Discord message, whichever reads better cropped. The first digest runs Tuesday, November 3, 2026. Write the caption and alt text once the image exists. */}
 
+## Making it hold up
+
+Once Chickadee had been running for a few weeks, I went back through it with a different question: not whether it worked, but whether it would keep working as I changed it. A review with Claude turned up four bugs. The hourly uptime job had been failing since I renamed its command, because the workflow still called the old name. The tests that keep injected HTML out of the digest email and webhook addresses out of error messages had never run, because their file's name didn't match the pattern pytest looks for. The link checker read links from pages that had returned errors. And the importer read each page's last-modified date from the sitemap, then dropped it.
+
+Each fix was small. What the four had in common mattered more: they all sat in code that talked to Airtable, the network, or GitHub Actions directly, which was exactly the code the tests couldn't reach. So I changed the structure. Airtable now lives in one module, and the rest of the code works with typed page and check objects. Each command's logic is handed what it needs instead of creating it, so a test can give it a fake Airtable table and a fake website. Test coverage went from 68% to 86%, CI fails if it drops below 85%, and type checking runs in strict mode. Another test checks that every scheduled workflow runs a command that exists, so a rename can't quietly stop a job again.
+
+A few reliability fixes came along the way. A half-finished row in Airtable is now skipped and reported, where before one new page without a URL could stop every check. Link checks and audits save their progress every 25 pages, so a run that hits its time limit keeps what it did. Settings are read once at startup, and secrets stay out of logs and error messages.
+
 ## Watching this site's move
 
-I started running Chickadee on this site in October 2026, before moving it from headless WordPress and Next.js to Astro. Before pointing it at a real site, I changed the importer to normalize URLs, so `example.org/page` and `example.org/page/` count as the same page. Without that, a site that changed how its URLs end would look like it had lost every page and gained a new set. I'll add what Chickadee finds here once the move is done.
-
-{/* TODO: the last sentence above is a placeholder. Replace it with the results after the switchover, and move the home page Chickadee line back to past tense at the same time. */}
+The move went live on October 29, 2026. [The uptime checks showed no downtime at all. The first link check after the move found no broken links. The first audit sent every page to Claude, because the new templates marked up the main content differently, which the fingerprint counted as a change.
